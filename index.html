@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hard Play - Официальный Фан-Сайт</title>
+    <title>Hard Play - Официальный Портал | Алексей Баранов</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;900&family=Russo+One&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -11,44 +12,213 @@
             box-sizing: border-box;
         }
 
-        body {
-            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            color: #fff;
-            overflow-x: hidden;
+        :root {
+            --primary: #ff0000;
+            --secondary: #ff6b6b;
+            --dark: #0a0a0a;
+            --darker: #000000;
+            --light: #ffffff;
+            --gray: #888;
         }
 
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: var(--darker);
+            color: var(--light);
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        /* Живой фон с частицами */
+        #particles-js {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 0;
+            background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
+        }
+
+        .content-wrapper {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Навигация */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 20px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        nav.scrolled {
+            padding: 15px 50px;
+            background: rgba(0, 0, 0, 0.9);
+            box-shadow: 0 5px 30px rgba(255, 0, 0, 0.3);
+        }
+
+        .logo {
+            font-family: 'Russo One', sans-serif;
+            font-size: 2em;
+            font-weight: 900;
+            background: linear-gradient(90deg, #ff0000, #ff6b6b, #ff0000);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradient-shift 3s linear infinite;
+            cursor: pointer;
+            text-shadow: 0 0 30px rgba(255, 0, 0, 0.5);
+        }
+
+        @keyframes gradient-shift {
+            0% { background-position: 0% center; }
+            100% { background-position: 200% center; }
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--light);
+            text-decoration: none;
+            font-weight: 600;
+            position: relative;
+            transition: all 0.3s ease;
+            padding: 5px 0;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        /* Hero секция */
         .hero {
             height: 100vh;
             display: flex;
-            flex-direction: column;
-            justify-content: center;
             align-items: center;
-            text-align: center;
+            justify-content: center;
             position: relative;
-            background: radial-gradient(circle at center, rgba(255,0,0,0.1) 0%, transparent 70%);
+            overflow: hidden;
         }
 
-        .hero::before {
-            content: '';
+        .hero-bg-video {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            transform: translate(-50%, -50%);
+            opacity: 0.15;
+            filter: grayscale(100%) contrast(1.2);
+            z-index: 0;
+        }
+
+        .hero-overlay {
             position: absolute;
             top: 0;
             left: 0;
-            right: 0;
-            bottom: 0;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text y="50" font-size="80" opacity="0.03">🎮</text></svg>') repeat;
-            animation: scroll 20s linear infinite;
-            opacity: 0.1;
-        }
-
-        @keyframes scroll {
-            0% { transform: translateY(0); }
-            100% { transform: translateY(-100px); }
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, transparent 0%, rgba(0,0,0,0.7) 100%);
+            z-index: 1;
         }
 
         .hero-content {
-            z-index: 1;
-            animation: fadeInUp 1s ease;
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            padding: 0 20px;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            padding: 10px 30px;
+            background: rgba(255, 0, 0, 0.1);
+            border: 2px solid var(--primary);
+            border-radius: 50px;
+            font-size: 0.9em;
+            font-weight: 600;
+            margin-bottom: 30px;
+            animation: float 3s ease-in-out infinite;
+            backdrop-filter: blur(10px);
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .hero h1 {
+            font-family: 'Russo One', sans-serif;
+            font-size: 8em;
+            font-weight: 900;
+            margin-bottom: 20px;
+            background: linear-gradient(45deg, #ff0000, #ffffff, #ff0000);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradient-shift 3s linear infinite, title-glow 2s ease-in-out infinite;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+        }
+
+        @keyframes title-glow {
+            0%, 100% {
+                filter: drop-shadow(0 0 20px rgba(255, 0, 0, 0.5));
+            }
+            50% {
+                filter: drop-shadow(0 0 40px rgba(255, 0, 0, 0.8));
+            }
+        }
+
+        .hero-subtitle {
+            font-size: 1.8em;
+            font-weight: 300;
+            margin-bottom: 15px;
+            opacity: 0;
+            animation: fadeInUp 1s ease 0.3s forwards;
+        }
+
+        .hero-description {
+            font-size: 1.2em;
+            color: var(--gray);
+            max-width: 700px;
+            margin: 0 auto 40px;
+            line-height: 1.8;
+            opacity: 0;
+            animation: fadeInUp 1s ease 0.6s forwards;
         }
 
         @keyframes fadeInUp {
@@ -62,605 +232,1242 @@
             }
         }
 
-        .hero h1 {
-            font-size: 5em;
-            font-weight: 900;
-            background: linear-gradient(45deg, #ff0000, #ff6b6b, #ff0000);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            text-shadow: 0 0 30px rgba(255,0,0,0.5);
-            margin-bottom: 20px;
-            letter-spacing: 3px;
-        }
-
-        .hero .subtitle {
-            font-size: 1.5em;
-            color: #ff6b6b;
-            margin-bottom: 10px;
-            font-weight: 300;
-        }
-
-        .hero .tagline {
-            font-size: 1.1em;
-            color: #aaa;
-            margin-bottom: 40px;
-            max-width: 600px;
-        }
-
-        .social-links {
+        .hero-cta {
             display: flex;
             gap: 20px;
-            margin-top: 30px;
+            justify-content: center;
+            margin-top: 40px;
+            opacity: 0;
+            animation: fadeInUp 1s ease 0.9s forwards;
         }
 
-        .social-btn {
-            padding: 15px 35px;
-            background: linear-gradient(135deg, #ff0000, #cc0000);
+        .cta-btn {
+            padding: 18px 45px;
+            font-size: 1.1em;
+            font-weight: 700;
             border: none;
             border-radius: 50px;
-            color: white;
-            font-size: 1em;
-            font-weight: bold;
             cursor: pointer;
             transition: all 0.3s ease;
             text-decoration: none;
-            display: flex;
+            display: inline-flex;
             align-items: center;
             gap: 10px;
-            box-shadow: 0 5px 20px rgba(255,0,0,0.3);
-        }
-
-        .social-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 30px rgba(255,0,0,0.5);
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 80px 20px;
-        }
-
-        .section {
-            margin-bottom: 80px;
-        }
-
-        .section-title {
-            font-size: 2.5em;
-            margin-bottom: 40px;
-            text-align: center;
-            position: relative;
-            display: inline-block;
-            left: 50%;
-            transform: translateX(-50%);
-        }
-
-        .section-title::after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 0;
-            width: 100%;
-            height: 3px;
-            background: linear-gradient(90deg, transparent, #ff0000, transparent);
-        }
-
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
-            margin-top: 50px;
-        }
-
-        .stat-card {
-            background: rgba(255, 255, 255, 0.05);
-            border: 2px solid rgba(255, 0, 0, 0.3);
-            border-radius: 20px;
-            padding: 30px;
-            text-align: center;
-            backdrop-filter: blur(10px);
-            transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
         }
 
-        .stat-card::before {
+        .cta-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .cta-btn:hover::before {
+            left: 100%;
+        }
+
+        .cta-primary {
+            background: linear-gradient(135deg, #ff0000, #cc0000);
+            color: white;
+            box-shadow: 0 10px 30px rgba(255, 0, 0, 0.4);
+        }
+
+        .cta-primary:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 15px 40px rgba(255, 0, 0, 0.6);
+        }
+
+        .cta-secondary {
+            background: transparent;
+            color: white;
+            border: 2px solid var(--primary);
+            backdrop-filter: blur(10px);
+        }
+
+        .cta-secondary:hover {
+            background: var(--primary);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(255, 0, 0, 0.4);
+        }
+
+        /* Статистика */
+        .stats-bar {
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(20px);
+            padding: 50px 0;
+            border-top: 1px solid rgba(255, 0, 0, 0.2);
+            border-bottom: 1px solid rgba(255, 0, 0, 0.2);
+        }
+
+        .stats-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 50px;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 50px;
+        }
+
+        .stat-item {
+            text-align: center;
+            position: relative;
+            padding: 30px;
+            background: rgba(255, 0, 0, 0.05);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 0, 0, 0.2);
+            transition: all 0.4s ease;
+            overflow: hidden;
+        }
+
+        .stat-item::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: radial-gradient(circle, rgba(255,0,0,0.2) 0%, transparent 70%);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s ease, height 0.6s ease;
+            border-radius: 50%;
+        }
+
+        .stat-item:hover::before {
+            width: 500px;
+            height: 500px;
+        }
+
+        .stat-item:hover {
+            transform: translateY(-10px) scale(1.05);
+            border-color: var(--primary);
+            box-shadow: 0 20px 60px rgba(255, 0, 0, 0.4);
+        }
+
+        .stat-icon {
+            font-size: 4em;
+            margin-bottom: 15px;
+            display: inline-block;
+            animation: bounce 2s ease-in-out infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+
+        .stat-number {
+            font-family: 'Russo One', sans-serif;
+            font-size: 3.5em;
+            font-weight: 900;
+            color: var(--primary);
+            margin-bottom: 10px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .stat-label {
+            font-size: 1.1em;
+            color: var(--gray);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Основной контейнер */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 100px 50px;
+        }
+
+        /* Секции */
+        .section {
+            margin-bottom: 150px;
+            position: relative;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 80px;
+            position: relative;
+        }
+
+        .section-badge {
+            display: inline-block;
+            padding: 8px 25px;
+            background: rgba(255, 0, 0, 0.1);
+            border: 1px solid var(--primary);
+            border-radius: 50px;
+            font-size: 0.85em;
+            font-weight: 600;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .section-title {
+            font-family: 'Russo One', sans-serif;
+            font-size: 4em;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #ffffff, #ff6b6b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .section-description {
+            font-size: 1.2em;
+            color: var(--gray);
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.8;
+        }
+
+        /* Контент карточки */
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+        }
+
+        .content-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 25px;
+            overflow: hidden;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            cursor: pointer;
+        }
+
+        .content-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(255,0,0,0.1) 0%, transparent 100%);
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .content-card:hover::before {
+            opacity: 1;
+        }
+
+        .content-card:hover {
+            transform: translateY(-15px) rotateY(5deg);
+            border-color: var(--primary);
+            box-shadow: 0 30px 80px rgba(255, 0, 0, 0.4);
+        }
+
+        .card-icon {
+            font-size: 5em;
+            padding: 50px;
+            text-align: center;
+            background: linear-gradient(135deg, rgba(255,0,0,0.1) 0%, rgba(255,107,107,0.05) 100%);
+            position: relative;
+        }
+
+        .card-icon::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 100px;
+            height: 100px;
+            background: radial-gradient(circle, rgba(255,0,0,0.3) 0%, transparent 70%);
+            transform: translate(-50%, -50%);
+            filter: blur(30px);
+        }
+
+        .card-body {
+            padding: 35px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .card-title {
+            font-size: 1.8em;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: var(--primary);
+        }
+
+        .card-description {
+            color: var(--gray);
+            line-height: 1.7;
+            font-size: 1em;
+        }
+
+        /* О канале - премиум блок */
+        .about-premium {
+            background: linear-gradient(135deg, rgba(255,0,0,0.05) 0%, rgba(0,0,0,0.5) 100%);
+            border-radius: 30px;
+            padding: 80px;
+            border: 2px solid rgba(255, 0, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .about-premium::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(255,0,0,0.1) 0%, transparent 70%);
+            animation: rotate 20s linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .about-image {
+            position: relative;
+        }
+
+        .about-image-placeholder {
+            width: 100%;
+            height: 500px;
+            background: linear-gradient(135deg, rgba(255,0,0,0.2), rgba(255,107,107,0.1));
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 8em;
+            border: 2px solid rgba(255, 0, 0, 0.5);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .about-image-placeholder::before {
             content: '';
             position: absolute;
             top: -50%;
             left: -50%;
             width: 200%;
             height: 200%;
-            background: radial-gradient(circle, rgba(255,0,0,0.1) 0%, transparent 70%);
-            opacity: 0;
-            transition: opacity 0.3s ease;
+            background: linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.1) 50%, transparent 70%);
+            animation: shine 3s ease-in-out infinite;
         }
 
-        .stat-card:hover::before {
-            opacity: 1;
-        }
-
-        .stat-card:hover {
-            transform: translateY(-10px);
-            border-color: #ff0000;
-            box-shadow: 0 10px 40px rgba(255,0,0,0.3);
-        }
-
-        .stat-icon {
-            font-size: 3em;
-            margin-bottom: 15px;
-        }
-
-        .stat-number {
-            font-size: 2.5em;
-            font-weight: bold;
-            color: #ff6b6b;
-            margin-bottom: 10px;
-        }
-
-        .stat-label {
-            font-size: 1.1em;
-            color: #ccc;
-        }
-
-        .content-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            margin-top: 50px;
-        }
-
-        .content-card {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 15px;
-            overflow: hidden;
-            border: 2px solid rgba(255, 0, 0, 0.2);
-            transition: all 0.3s ease;
-            backdrop-filter: blur(10px);
-        }
-
-        .content-card:hover {
-            transform: scale(1.05);
-            border-color: #ff0000;
-            box-shadow: 0 10px 40px rgba(255,0,0,0.3);
-        }
-
-        .content-icon {
-            font-size: 4em;
-            padding: 30px;
-            text-align: center;
-            background: linear-gradient(135deg, rgba(255,0,0,0.1), rgba(255,107,107,0.1));
-        }
-
-        .content-body {
-            padding: 20px;
-        }
-
-        .content-title {
-            font-size: 1.5em;
-            margin-bottom: 10px;
-            color: #ff6b6b;
-        }
-
-        .content-description {
-            color: #ccc;
-            line-height: 1.6;
-        }
-
-        .about-section {
-            background: rgba(255, 255, 255, 0.03);
-            border-radius: 20px;
-            padding: 50px;
-            border: 2px solid rgba(255, 0, 0, 0.2);
-            backdrop-filter: blur(10px);
-        }
-
-        .about-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 50px;
-            align-items: center;
+        @keyframes shine {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
         }
 
         .about-text h3 {
-            font-size: 2em;
-            color: #ff6b6b;
-            margin-bottom: 20px;
+            font-family: 'Russo One', sans-serif;
+            font-size: 3em;
+            margin-bottom: 30px;
+            background: linear-gradient(135deg, #ffffff, #ff6b6b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
         .about-text p {
-            color: #ccc;
-            line-height: 1.8;
-            margin-bottom: 15px;
+            font-size: 1.1em;
+            line-height: 2;
+            color: var(--gray);
+            margin-bottom: 20px;
         }
 
-        .about-facts {
+        .about-highlights {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-top: 40px;
+        }
+
+        .highlight-item {
+            padding: 20px;
             background: rgba(255, 0, 0, 0.1);
-            border-radius: 15px;
-            padding: 30px;
+            border-left: 3px solid var(--primary);
+            border-radius: 10px;
+            transition: all 0.3s ease;
         }
 
-        .fact-item {
-            padding: 15px 0;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        .highlight-item:hover {
+            background: rgba(255, 0, 0, 0.2);
+            transform: translateX(10px);
         }
 
-        .fact-item:last-child {
-            border-bottom: none;
-        }
-
-        .fact-label {
-            color: #ff6b6b;
-            font-weight: bold;
+        .highlight-label {
+            font-weight: 700;
+            color: var(--primary);
             margin-bottom: 5px;
         }
 
-        .fact-value {
-            color: #fff;
+        .highlight-value {
+            color: var(--light);
             font-size: 1.1em;
         }
 
-        .timeline {
+        /* Таймлайн - профессиональный */
+        .timeline-wrapper {
             position: relative;
-            padding-left: 50px;
-            margin-top: 50px;
+            padding: 50px 0;
         }
 
-        .timeline::before {
-            content: '';
+        .timeline-line {
             position: absolute;
-            left: 20px;
+            left: 50%;
             top: 0;
             bottom: 0;
-            width: 2px;
-            background: linear-gradient(180deg, #ff0000, transparent);
+            width: 3px;
+            background: linear-gradient(180deg, var(--primary) 0%, transparent 100%);
+            transform: translateX(-50%);
         }
 
         .timeline-item {
+            display: flex;
+            gap: 50px;
+            margin-bottom: 80px;
             position: relative;
-            margin-bottom: 40px;
-            padding-left: 30px;
         }
 
-        .timeline-item::before {
-            content: '';
-            position: absolute;
-            left: -34px;
-            top: 5px;
-            width: 12px;
-            height: 12px;
-            background: #ff0000;
-            border-radius: 50%;
-            box-shadow: 0 0 15px rgba(255,0,0,0.7);
-        }
-
-        .timeline-year {
-            color: #ff6b6b;
-            font-weight: bold;
-            font-size: 1.2em;
-            margin-bottom: 5px;
+        .timeline-item:nth-child(even) {
+            flex-direction: row-reverse;
         }
 
         .timeline-content {
-            color: #ccc;
+            flex: 1;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 35px;
+            position: relative;
+            transition: all 0.4s ease;
         }
 
-        .footer {
-            background: rgba(0, 0, 0, 0.5);
-            padding: 40px 20px;
+        .timeline-content:hover {
+            transform: scale(1.05);
+            border-color: var(--primary);
+            box-shadow: 0 20px 60px rgba(255, 0, 0, 0.3);
+        }
+
+        .timeline-year {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, var(--primary), #cc0000);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Russo One', sans-serif;
+            font-size: 1.3em;
+            font-weight: 900;
+            border: 5px solid var(--darker);
+            box-shadow: 0 10px 30px rgba(255, 0, 0, 0.5);
+            z-index: 10;
+        }
+
+        .timeline-title {
+            font-size: 1.5em;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+
+        .timeline-description {
+            color: var(--gray);
+            line-height: 1.8;
+        }
+
+        /* Галерея видео */
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 40px;
+        }
+
+        .video-card {
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            aspect-ratio: 16/9;
+            background: rgba(255, 0, 0, 0.1);
+            cursor: pointer;
+            transition: all 0.4s ease;
+        }
+
+        .video-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 20px 60px rgba(255, 0, 0, 0.5);
+        }
+
+        .video-thumbnail {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 8em;
+            background: linear-gradient(135deg, rgba(255,0,0,0.2), rgba(255,107,107,0.1));
+        }
+
+        .video-play {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80px;
+            height: 80px;
+            background: rgba(255, 0, 0, 0.9);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2em;
+            transition: all 0.3s ease;
+        }
+
+        .video-card:hover .video-play {
+            transform: translate(-50%, -50%) scale(1.2);
+            box-shadow: 0 0 40px rgba(255, 0, 0, 0.8);
+        }
+
+        .video-info {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 25px;
+            background: linear-gradient(180deg, transparent, rgba(0,0,0,0.9));
+        }
+
+        .video-title {
+            font-size: 1.3em;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .video-meta {
+            color: var(--gray);
+            font-size: 0.9em;
+        }
+
+        /* Соцсети - крутой блок */
+        .social-premium {
+            background: linear-gradient(135deg, rgba(255,0,0,0.1), rgba(0,0,0,0.5));
+            border-radius: 30px;
+            padding: 80px;
             text-align: center;
-            border-top: 2px solid rgba(255, 0, 0, 0.3);
+            border: 2px solid rgba(255, 0, 0, 0.3);
+            position: relative;
+            overflow: hidden;
         }
 
-        .footer p {
-            color: #888;
+        .social-premium::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(255,0,0,0.2) 0%, transparent 70%);
+            transform: translate(-50%, -50%);
+            filter: blur(50px);
+        }
+
+        .social-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-top: 50px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .social-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            text-decoration: none;
+            display: block;
+        }
+
+        .social-card:hover {
+            transform: translateY(-15px) rotateZ(2deg);
+            border-color: var(--primary);
+            box-shadow: 0 30px 80px rgba(255, 0, 0, 0.5);
+        }
+
+        .social-icon {
+            font-size: 5em;
             margin-bottom: 20px;
+            display: inline-block;
+            animation: pulse-social 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse-social {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .social-name {
+            font-size: 1.5em;
+            font-weight: 700;
+            color: var(--light);
+            margin-bottom: 10px;
+        }
+
+        .social-followers {
+            color: var(--primary);
+            font-weight: 700;
+            font-size: 1.2em;
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(0, 0, 0, 0.9);
+            padding: 60px 50px 30px;
+            border-top: 2px solid rgba(255, 0, 0, 0.3);
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .footer-logo {
+            font-family: 'Russo One', sans-serif;
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            background: linear-gradient(90deg, #ff0000, #ff6b6b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .footer-text {
+            color: var(--gray);
+            margin-bottom: 30px;
+            font-size: 1.1em;
         }
 
         .footer-links {
             display: flex;
             justify-content: center;
             gap: 30px;
+            margin-bottom: 30px;
             flex-wrap: wrap;
         }
 
         .footer-link {
-            color: #ff6b6b;
+            color: var(--light);
             text-decoration: none;
-            transition: color 0.3s ease;
+            transition: all 0.3s ease;
+            font-weight: 600;
         }
 
         .footer-link:hover {
-            color: #ff0000;
+            color: var(--primary);
+            transform: translateY(-3px);
+        }
+
+        .copyright {
+            color: var(--gray);
+            font-size: 0.9em;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Адаптивность */
+        @media (max-width: 1200px) {
+            .hero h1 { font-size: 6em; }
+            .content-grid { grid-template-columns: repeat(2, 1fr); }
+            .stats-container { grid-template-columns: repeat(2, 1fr); }
         }
 
         @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 3em;
-            }
-
-            .social-links {
-                flex-direction: column;
-            }
-
-            .about-content {
-                grid-template-columns: 1fr;
-            }
-
-            .section-title {
-                font-size: 2em;
-            }
+            nav { padding: 15px 20px; }
+            .nav-links { display: none; }
+            .hero h1 { font-size: 4em; }
+            .content-grid { grid-template-columns: 1fr; }
+            .stats-container { grid-template-columns: 1fr; }
+            .about-content { grid-template-columns: 1fr; }
+            .social-grid { grid-template-columns: 1fr; }
+            .video-grid { grid-template-columns: 1fr; }
+            .container { padding: 50px 20px; }
+            .timeline-item { flex-direction: column !important; }
+            .timeline-line { left: 20px; }
         }
 
-        .pulse {
-            animation: pulse 2s infinite;
+        /* Анимации появления */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
         }
 
-        @keyframes pulse {
-            0%, 100% {
-                transform: scale(1);
-            }
-            50% {
-                transform: scale(1.05);
-            }
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
 
-        .glow {
-            text-shadow: 0 0 10px rgba(255,0,0,0.5),
-                         0 0 20px rgba(255,0,0,0.3),
-                         0 0 30px rgba(255,0,0,0.1);
+        /* Loader */
+        .loader-wrapper {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--darker);
+            z-index: 10000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.5s ease;
+        }
+
+        .loader {
+            width: 100px;
+            height: 100px;
+            border: 5px solid rgba(255, 0, 0, 0.2);
+            border-top-color: var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .loader-wrapper.hidden {
+            opacity: 0;
+            pointer-events: none;
         }
     </style>
 </head>
 <body>
-    <div class="hero">
-        <div class="hero-content">
-            <h1 class="glow">HARD PLAY</h1>
-            <div class="subtitle">Алексей Баранов</div>
-            <p class="tagline">Стример, летсплейщик и создатель уникального контента. Хоррор, заброшки, реакции и многое другое!</p>
-
-            <div class="social-links">
-                <a href="https://www.youtube.com/@HardPlayYT" target="_blank" class="social-btn pulse">
-                    🎥 YouTube
-                </a>
-                <a href="https://t.me/hplegion" target="_blank" class="social-btn">
-                    ✈️ Telegram
-                </a>
-                <a href="https://www.twitch.tv/hardgamechannel" target="_blank" class="social-btn">
-                    🎮 Twitch
-                </a>
-            </div>
-        </div>
+    <!-- Loader -->
+    <div class="loader-wrapper" id="loader">
+        <div class="loader"></div>
     </div>
 
-    <div class="container">
-        <section class="section">
-            <h2 class="section-title">📊 Статистика</h2>
-            <div class="stats-grid">
-                <div class="stat-card">
+    <!-- Живой фон с частицами -->
+    <div id="particles-js"></div>
+
+    <div class="content-wrapper">
+        <!-- Навигация -->
+        <nav id="navbar">
+            <div class="logo">HARD PLAY</div>
+            <ul class="nav-links">
+                <li><a href="#home">Главная</a></li>
+                <li><a href="#stats">Статистика</a></li>
+                <li><a href="#content">Контент</a></li>
+                <li><a href="#about">О канале</a></li>
+                <li><a href="#timeline">История</a></li>
+                <li><a href="#social">Соцсети</a></li>
+            </ul>
+        </nav>
+
+        <!-- Hero Section -->
+        <section class="hero" id="home">
+            <video class="hero-bg-video" autoplay muted loop playsinline>
+                <source src="data:video/mp4;base64," type="video/mp4">
+            </video>
+            <div class="hero-overlay"></div>
+            <div class="hero-content">
+                <div class="hero-badge">🔥 Официальный Портал</div>
+                <h1>HARD PLAY</h1>
+                <div class="hero-subtitle">Алексей Баранов</div>
+                <p class="hero-description">
+                    Один из самых уникальных создателей контента в Рунете. Хоррор, заброшенные места, 
+                    летсплеи и реакции - всё с неповторимым авторским стилем и миллионами просмотров.
+                </p>
+                <div class="hero-cta">
+                    <a href="https://www.youtube.com/@HardPlayYT" target="_blank" class="cta-btn cta-primary">
+                        🎥 Смотреть YouTube
+                    </a>
+                    <a href="#content" class="cta-btn cta-secondary">
+                        📖 Узнать больше
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Статистика -->
+        <div class="stats-bar" id="stats">
+            <div class="stats-container">
+                <div class="stat-item fade-in">
                     <div class="stat-icon">👥</div>
-                    <div class="stat-number">557K+</div>
+                    <div class="stat-number" data-target="557000">0</div>
                     <div class="stat-label">Подписчиков</div>
                 </div>
-                <div class="stat-card">
-                    <div class="stat-icon">👀</div>
-                    <div class="stat-number">83M+</div>
+                <div class="stat-item fade-in">
+                    <div class="stat-icon">👁️</div>
+                    <div class="stat-number" data-target="83000000">0</div>
                     <div class="stat-label">Просмотров</div>
                 </div>
-                <div class="stat-card">
+                <div class="stat-item fade-in">
                     <div class="stat-icon">🎬</div>
-                    <div class="stat-number">1000+</div>
+                    <div class="stat-number" data-target="1000">0</div>
                     <div class="stat-label">Видео</div>
                 </div>
-                <div class="stat-card">
-                    <div class="stat-icon">⏱️</div>
-                    <div class="stat-number">9+</div>
+                <div class="stat-item fade-in">
+                    <div class="stat-icon">⭐</div>
+                    <div class="stat-number" data-target="9">0</div>
                     <div class="stat-label">Лет на YouTube</div>
                 </div>
             </div>
-        </section>
+        </div>
 
-        <section class="section">
-            <h2 class="section-title">🎭 Контент</h2>
-            <div class="content-grid">
-                <div class="content-card">
-                    <div class="content-icon">👻</div>
-                    <div class="content-body">
-                        <h3 class="content-title">Хоррор и Мистика</h3>
-                        <p class="content-description">Прохождения страшных игр, реакции на жуткие видео и разбор паранормальных явлений</p>
+        <div class="container">
+            <!-- Контент -->
+            <section class="section fade-in" id="content">
+                <div class="section-header">
+                    <div class="section-badge">🎭 Контент</div>
+                    <h2 class="section-title">Что на канале?</h2>
+                    <p class="section-description">
+                        Hard Play - это разнообразный контент для настоящих ценителей атмосферы, 
+                        эмоций и качественного видеопроизводства
+                    </p>
+                </div>
+                <div class="content-grid">
+                    <div class="content-card fade-in">
+                        <div class="card-icon">👻</div>
+                        <div class="card-body">
+                            <h3 class="card-title">Хоррор Летсплеи</h3>
+                            <p class="card-description">
+                                Прохождения самых страшных игр с живыми эмоциями. Outlast, Resident Evil, 
+                                Silent Hill, Tiny Bunny и множество других хоррор-шедевров.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="content-card fade-in">
+                        <div class="card-icon">🏚️</div>
+                        <div class="card-body">
+                            <h3 class="card-title">Stay Alone</h3>
+                            <p class="card-description">
+                                Авторский проект - исследование заброшенных мест в одиночку. Бельгийские замки, 
+                                советские санатории, заброшенные отели - всё с профессиональной съёмкой.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="content-card fade-in">
+                        <div class="card-icon">😱</div>
+                        <div class="card-body">
+                            <h3 class="card-title">Самые Страшные Видео</h3>
+                            <p class="card-description">
+                                Разбор и реакции на самые жуткие ролики из интернета. Паранормальные явления, 
+                                мистика, необъяснимое - всё с экспертной оценкой.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="content-card fade-in">
+                        <div class="card-icon">🎮</div>
+                        <div class="card-body">
+                            <h3 class="card-title">Игровые Летсплеи</h3>
+                            <p class="card-description">
+                                Прохождения популярных и малоизвестных игр разных жанров. От хардкорных 
+                                симуляторов до казуальных инди-проектов.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="content-card fade-in">
+                        <div class="card-icon">✈️</div>
+                        <div class="card-body">
+                            <h3 class="card-title">Путешествия</h3>
+                            <p class="card-description">
+                                Влоги из разных уголков мира. Европа, Азия, Россия - культурные особенности, 
+                                интересные места и личные впечатления автора.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="content-card fade-in">
+                        <div class="card-icon">🏎️</div>
+                        <div class="card-body">
+                            <h3 class="card-title">Авто и Мото</h3>
+                            <p class="card-description">
+                                Контент про автомобили, мотоциклы и экстремальные виды спорта. Гонки, 
+                                обзоры техники и адреналиновые моменты.
+                            </p>
+                        </div>
                     </div>
                 </div>
-                <div class="content-card">
-                    <div class="content-icon">🏚️</div>
-                    <div class="content-body">
-                        <h3 class="content-title">Stay Alone</h3>
-                        <p class="content-description">Авторский проект - исследование заброшенных мест по всему миру. Атмосферно и завораживающе!</p>
-                    </div>
-                </div>
-                <div class="content-card">
-                    <div class="content-icon">🎮</div>
-                    <div class="content-body">
-                        <h3 class="content-title">Летсплеи</h3>
-                        <p class="content-description">Прохождения популярных и малоизвестных игр с живыми эмоциями и комментариями</p>
-                    </div>
-                </div>
-                <div class="content-card">
-                    <div class="content-icon">😱</div>
-                    <div class="content-body">
-                        <h3 class="content-title">Реакции</h3>
-                        <p class="content-description">Разбор самых страшных и шокирующих видео из интернета с экспертной оценкой</p>
-                    </div>
-                </div>
-                <div class="content-card">
-                    <div class="content-icon">✈️</div>
-                    <div class="content-body">
-                        <h3 class="content-title">Путешествия</h3>
-                        <p class="content-description">Влоги из разных уголков мира, культурные особенности и личные впечатления</p>
-                    </div>
-                </div>
-                <div class="content-card">
-                    <div class="content-icon">🏎️</div>
-                    <div class="content-body">
-                        <h3 class="content-title">Автогонки и Мото</h3>
-                        <p class="content-description">Контент про автомобили, мотоциклы и экстремальные виды спорта</p>
-                    </div>
-                </div>
-            </div>
-        </section>
+            </section>
 
-        <section class="section">
-            <div class="about-section">
-                <h2 class="section-title">👤 О Канале</h2>
-                <div class="about-content">
-                    <div class="about-text">
-                        <h3>Алексей Баранов</h3>
-                        <p>Один из самых уникальных блогеров русскоязычного YouTube. Алексей создает разнообразный контент — от летсплеев и хоррор-игр до документальных путешествий по заброшенным местам.</p>
-                        <p>Канал Hard Play выделяется авторским подходом и искренними эмоциями. Особую популярность приобрел сериал "Stay Alone", где Алексей в одиночку исследует заброшенные здания по всему миру.</p>
-                        <p>За 9 лет существования канала было создано огромное количество качественного контента, который продолжает собирать миллионы просмотров.</p>
-                    </div>
-                    <div class="about-facts">
-                        <div class="fact-item">
-                            <div class="fact-label">🎂 Город</div>
-                            <div class="fact-value">Клин, Россия</div>
+            <!-- О канале -->
+            <section class="section fade-in" id="about">
+                <div class="section-header">
+                    <div class="section-badge">👤 Личность</div>
+                    <h2 class="section-title">Алексей Баранов</h2>
+                    <p class="section-description">
+                        Создатель уникального контента, покоривший сердца миллионов зрителей
+                    </p>
+                </div>
+                <div class="about-premium">
+                    <div class="about-content">
+                        <div class="about-image">
+                            <div class="about-image-placeholder">
+                                🎭
+                            </div>
                         </div>
-                        <div class="fact-item">
-                            <div class="fact-label">📺 Платформы</div>
-                            <div class="fact-value">YouTube, Twitch, VK Play, Kick</div>
-                        </div>
-                        <div class="fact-item">
-                            <div class="fact-label">🎯 Основной контент</div>
-                            <div class="fact-value">Хоррор, заброшки, реакции</div>
-                        </div>
-                        <div class="fact-item">
-                            <div class="fact-label">💎 Эксклюзив</div>
-                            <div class="fact-value">Boosty - фильмы, аниме</div>
-                        </div>
-                        <div class="fact-item">
-                            <div class="fact-label">🌟 Особенность</div>
-                            <div class="fact-value">Уникальный формат Stay Alone</div>
+                        <div class="about-text">
+                            <h3>О создателе</h3>
+                            <p>
+                                Алексей Баранов - один из самых узнаваемых блогеров русскоязычного YouTube. 
+                                За 9 лет существования канала создал огромную библиотеку качественного контента, 
+                                который продолжает собирать миллионы просмотров.
+                            </p>
+                            <p>
+                                Особую популярность приобрел авторский проект "Stay Alone", где Алексей 
+                                в одиночку исследует заброшенные здания по всему миру, создавая атмосферные 
+                                и завораживающие видео с профессиональной операторской работой.
+                            </p>
+                            <p>
+                                Канал выделяется искренними эмоциями автора, качественным монтажом и 
+                                разнообразием контента - от хоррор-летсплеев до документальных путешествий.
+                            </p>
+                            <div class="about-highlights">
+                                <div class="highlight-item">
+                                    <div class="highlight-label">🏙️ Город</div>
+                                    <div class="highlight-value">Клин, Россия</div>
+                                </div>
+                                <div class="highlight-item">
+                                    <div class="highlight-label">📺 Платформы</div>
+                                    <div class="highlight-value">YouTube, Twitch, VK Play</div>
+                                </div>
+                                <div class="highlight-item">
+                                    <div class="highlight-label">🎯 Жанр</div>
+                                    <div class="highlight-value">Хоррор, Заброшки, Летсплеи</div>
+                                </div>
+                                <div class="highlight-item">
+                                    <div class="highlight-label">💎 Особенность</div>
+                                    <div class="highlight-value">Авторский Stay Alone</div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </section>
+            </section>
 
-        <section class="section">
-            <h2 class="section-title">📅 Основные Вехи</h2>
-            <div class="timeline">
-                <div class="timeline-item">
-                    <div class="timeline-year">2016</div>
-                    <div class="timeline-content">Создание YouTube канала Hard Play и начало летсплей контента</div>
+            <!-- Таймлайн -->
+            <section class="section fade-in" id="timeline">
+                <div class="section-header">
+                    <div class="section-badge">📅 История</div>
+                    <h2 class="section-title">Путь к успеху</h2>
+                    <p class="section-description">
+                        От первых роликов до миллионов подписчиков - история развития канала
+                    </p>
                 </div>
-                <div class="timeline-item">
-                    <div class="timeline-year">2018-2019</div>
-                    <div class="timeline-content">Активное развитие канала, наработка аудитории через игровой контент</div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-year">2020</div>
-                    <div class="timeline-content">Запуск стримов на Twitch и диверсификация контента</div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-year">2021-2022</div>
-                    <div class="timeline-content">Создание авторского проекта "Stay Alone" - исследование заброшек</div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-year">2023</div>
-                    <div class="timeline-content">Съемки в Бельгии и других странах. Международное признание</div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-year">2024</div>
-                    <div class="timeline-content">Развитие разнообразного контента: реакции, хоррор, путешествия</div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-year">2025</div>
-                    <div class="timeline-content">Продолжение Stay Alone сезон 2, более 557K подписчиков</div>
-                </div>
-            </div>
-        </section>
+                <div class="timeline-wrapper">
+                    <div class="timeline-line"></div>
 
-        <section class="section">
-            <h2 class="section-title">🎬 Популярные Серии</h2>
-            <div class="content-grid">
-                <div class="content-card">
-                    <div class="content-icon">🐰</div>
-                    <div class="content-body">
-                        <h3 class="content-title">Tiny Bunny</h3>
-                        <p class="content-description">Прохождение культовой российской хоррор-игры с эмоциональными реакциями</p>
+                    <div class="timeline-item fade-in">
+                        <div class="timeline-content">
+                            <h4 class="timeline-title">Рождение канала</h4>
+                            <p class="timeline-description">
+                                Создание YouTube канала Hard Play и начало пути в мире летсплеев. 
+                                Первые игровые прохождения и наработка аудитории.
+                            </p>
+                        </div>
+                        <div class="timeline-year">2016</div>
+                        <div class="timeline-content" style="opacity: 0;"></div>
+                    </div>
+
+                    <div class="timeline-item fade-in">
+                        <div class="timeline-content">
+                            <h4 class="timeline-title">Активный рост</h4>
+                            <p class="timeline-description">
+                                Развитие канала, эксперименты с форматами. Прохождения хоррор-игр 
+                                становятся визитной карточкой канала. Быстрый рост аудитории.
+                            </p>
+                        </div>
+                        <div class="timeline-year">2018</div>
+                        <div class="timeline-content" style="opacity: 0;"></div>
+                    </div>
+
+                    <div class="timeline-item fade-in">
+                        <div class="timeline-content">
+                            <h4 class="timeline-title">Выход на стримы</h4>
+                            <p class="timeline-description">
+                                Запуск регулярных стримов на Twitch. Диверсификация контента, 
+                                взаимодействие с аудиторией в реальном времени.
+                            </p>
+                        </div>
+                        <div class="timeline-year">2020</div>
+                        <div class="timeline-content" style="opacity: 0;"></div>
+                    </div>
+
+                    <div class="timeline-item fade-in">
+                        <div class="timeline-content">
+                            <h4 class="timeline-title">Рождение Stay Alone</h4>
+                            <p class="timeline-description">
+                                Создание уникального авторского проекта - исследование заброшенных мест. 
+                                Новый формат приносит огромную популярность и признание.
+                            </p>
+                        </div>
+                        <div class="timeline-year">2021</div>
+                        <div class="timeline-content" style="opacity: 0;"></div>
+                    </div>
+
+                    <div class="timeline-item fade-in">
+                        <div class="timeline-content">
+                            <h4 class="timeline-title">Международное признание</h4>
+                            <p class="timeline-description">
+                                Съемки Stay Alone в Бельгии, Германии и других европейских странах. 
+                                Профессиональное оборудование и качество операторской работы на новом уровне.
+                            </p>
+                        </div>
+                        <div class="timeline-year">2023</div>
+                        <div class="timeline-content" style="opacity: 0;"></div>
+                    </div>
+
+                    <div class="timeline-item fade-in">
+                        <div class="timeline-content">
+                            <h4 class="timeline-title">Продолжение развития</h4>
+                            <p class="timeline-description">
+                                Stay Alone Season 2, более 557K подписчиков, миллионы просмотров. 
+                                Канал продолжает расти и радовать зрителей качественным контентом.
+                            </p>
+                        </div>
+                        <div class="timeline-year">2025</div>
+                        <div class="timeline-content" style="opacity: 0;"></div>
                     </div>
                 </div>
-                <div class="content-card">
-                    <div class="content-icon">📹</div>
-                    <div class="content-body">
-                        <h3 class="content-title">Самые Страшные Видео</h3>
-                        <p class="content-description">Регулярные подборки самых жутких роликов из интернета с разбором</p>
+            </section>
+
+            <!-- Популярные видео -->
+            <section class="section fade-in">
+                <div class="section-header">
+                    <div class="section-badge">🎬 Хиты</div>
+                    <h2 class="section-title">Популярные Серии</h2>
+                    <p class="section-description">
+                        Самые просматриваемые и любимые зрителями проекты канала
+                    </p>
+                </div>
+                <div class="video-grid">
+                    <div class="video-card fade-in">
+                        <div class="video-thumbnail">🏰</div>
+                        <div class="video-play">▶</div>
+                        <div class="video-info">
+                            <div class="video-title">Stay Alone - Замок в Бельгии</div>
+                            <div class="video-meta">Самая атмосферная серия проекта</div>
+                        </div>
+                    </div>
+                    <div class="video-card fade-in">
+                        <div class="video-thumbnail">🐰</div>
+                        <div class="video-play">▶</div>
+                        <div class="video-info">
+                            <div class="video-title">Tiny Bunny - Полное прохождение</div>
+                            <div class="video-meta">Культовая российская хоррор-игра</div>
+                        </div>
+                    </div>
+                    <div class="video-card fade-in">
+                        <div class="video-thumbnail">😱</div>
+                        <div class="video-play">▶</div>
+                        <div class="video-info">
+                            <div class="video-title">10 Самых Страшных Видео</div>
+                            <div class="video-meta">Популярная серия реакций</div>
+                        </div>
+                    </div>
+                    <div class="video-card fade-in">
+                        <div class="video-thumbnail">🏚️</div>
+                        <div class="video-play">▶</div>
+                        <div class="video-info">
+                            <div class="video-title">Stay Alone Season 2</div>
+                            <div class="video-meta">Продолжение легендарного проекта</div>
+                        </div>
                     </div>
                 </div>
-                <div class="content-card">
-                    <div class="content-icon">🏰</div>
-                    <div class="content-body">
-                        <h3 class="content-title">Замок в Бельгии</h3>
-                        <p class="content-description">Легендарная серия Stay Alone с исследованием заброшенного замка</p>
+            </section>
+
+            <!-- Соцсети -->
+            <section class="section fade-in" id="social">
+                <div class="social-premium">
+                    <div class="section-header">
+                        <div class="section-badge">🌐 Соцсети</div>
+                        <h2 class="section-title">Подписывайся везде</h2>
+                        <p class="section-description">
+                            Следи за новостями и не пропускай новый контент на всех платформах
+                        </p>
+                    </div>
+                    <div class="social-grid">
+                        <a href="https://www.youtube.com/@HardPlayYT" target="_blank" class="social-card fade-in">
+                            <div class="social-icon">🎥</div>
+                            <div class="social-name">YouTube</div>
+                            <div class="social-followers">557K+ подписчиков</div>
+                        </a>
+                        <a href="https://t.me/hplegion" target="_blank" class="social-card fade-in">
+                            <div class="social-icon">✈️</div>
+                            <div class="social-name">Telegram</div>
+                            <div class="social-followers">Новости и анонсы</div>
+                        </a>
+                        <a href="https://www.twitch.tv/hardgamechannel" target="_blank" class="social-card fade-in">
+                            <div class="social-icon">🎮</div>
+                            <div class="social-name">Twitch</div>
+                            <div class="social-followers">Прямые эфиры</div>
+                        </a>
+                        <a href="https://vk.com/hp_legion" target="_blank" class="social-card fade-in">
+                            <div class="social-icon">📱</div>
+                            <div class="social-name">ВКонтакте</div>
+                            <div class="social-followers">Сообщество</div>
+                        </a>
+                        <a href="https://www.instagram.com/hard.inst/" target="_blank" class="social-card fade-in">
+                            <div class="social-icon">📸</div>
+                            <div class="social-name">Instagram</div>
+                            <div class="social-followers">Фото из поездок</div>
+                        </a>
+                        <a href="https://boosty.to/hardplay" target="_blank" class="social-card fade-in">
+                            <div class="social-icon">💎</div>
+                            <div class="social-name">Boosty</div>
+                            <div class="social-followers">Эксклюзив</div>
+                        </a>
                     </div>
                 </div>
+            </section>
+        </div>
+
+        <!-- Footer -->
+        <footer>
+            <div class="footer-content">
+                <div class="footer-logo">HARD PLAY</div>
+                <p class="footer-text">
+                    Неофициальный фан-портал, созданный для поклонников канала Hard Play (Алексей Баранов)
+                </p>
+                <div class="footer-links">
+                    <a href="https://www.youtube.com/@HardPlayYT" target="_blank" class="footer-link">YouTube</a>
+                    <a href="https://t.me/hplegion" target="_blank" class="footer-link">Telegram</a>
+                    <a href="https://www.twitch.tv/hardgamechannel" target="_blank" class="footer-link">Twitch</a>
+                    <a href="https://vk.com/hp_legion" target="_blank" class="footer-link">VK</a>
+                    <a href="https://www.instagram.com/hard.inst/" target="_blank" class="footer-link">Instagram</a>
+                    <a href="https://boosty.to/hardplay" target="_blank" class="footer-link">Boosty</a>
+                    <a href="https://vkplay.live/hardplay" target="_blank" class="footer-link">VK Play</a>
+                </div>
+                <p class="copyright">
+                    © 2025 Hard Play Fan Portal. Все права на контент принадлежат Алексею Баранову.
+                    Сайт создан фанатами для фанатов.
+                </p>
             </div>
-        </section>
+        </footer>
     </div>
 
-    <footer class="footer">
-        <div class="container">
-            <p>🎮 Неофициальный фан-сайт канала Hard Play</p>
-            <div class="footer-links">
-                <a href="https://www.youtube.com/@HardPlayYT" target="_blank" class="footer-link">YouTube</a>
-                <a href="https://t.me/hplegion" target="_blank" class="footer-link">Telegram</a>
-                <a href="https://www.twitch.tv/hardgamechannel" target="_blank" class="footer-link">Twitch</a>
-                <a href="https://vk.com/hp_legion" target="_blank" class="footer-link">VK</a>
-                <a href="https://www.instagram.com/hard.inst/" target="_blank" class="footer-link">Instagram</a>
-                <a href="https://boosty.to/hardplay" target="_blank" class="footer-link">Boosty</a>
-            </div>
-            <p style="margin-top: 30px; font-size: 0.9em;">© 2025 Все права на контент принадлежат Hard Play (Алексею Баранову)</p>
-        </div>
-    </footer>
+    <!-- Particles.js библиотека -->
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
 
     <script>
+        // Loader
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.getElementById('loader').classList.add('hidden');
+            }, 1000);
+        });
+
+        // Particles.js конфигурация
+        particlesJS('particles-js', {
+            particles: {
+                number: { value: 80, density: { enable: true, value_area: 800 } },
+                color: { value: '#ff0000' },
+                shape: { type: 'circle' },
+                opacity: { value: 0.3, random: true },
+                size: { value: 3, random: true },
+                line_linked: {
+                    enable: true,
+                    distance: 150,
+                    color: '#ff0000',
+                    opacity: 0.2,
+                    width: 1
+                },
+                move: {
+                    enable: true,
+                    speed: 2,
+                    direction: 'none',
+                    random: true,
+                    straight: false,
+                    out_mode: 'out',
+                    bounce: false
+                }
+            },
+            interactivity: {
+                detect_on: 'canvas',
+                events: {
+                    onhover: { enable: true, mode: 'repulse' },
+                    onclick: { enable: true, mode: 'push' },
+                    resize: true
+                },
+                modes: {
+                    repulse: { distance: 100, duration: 0.4 },
+                    push: { particles_nb: 4 }
+                }
+            },
+            retina_detect: true
+        });
+
+        // Навигация при скролле
+        window.addEventListener('scroll', () => {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 100) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
         // Плавная прокрутка
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
                 const target = document.querySelector(this.getAttribute('href'));
                 if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
                 }
             });
         });
 
-        // Анимация появления элементов при прокрутке
+        // Анимация появления элементов
         const observerOptions = {
             threshold: 0.1,
-            rootMargin: '0px 0px -100px 0px'
+            rootMargin: '0px 0px -50px 0px'
         };
 
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
+                    entry.target.classList.add('visible');
                 }
             });
         }, observerOptions);
 
-        document.querySelectorAll('.stat-card, .content-card, .timeline-item').forEach(el => {
-            el.style.opacity = '0';
-            el.style.transform = 'translateY(30px)';
-            el.style.transition = 'all 0.6s ease';
-            observer.observe(el);
-        });
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
 
-        // Счетчик статистики
-        function animateCounter(element, target, duration = 2000) {
+        // Анимированный счетчик статистики
+        function animateCounter(element) {
+            const target = parseInt(element.dataset.target);
+            const duration = 2000;
             const start = 0;
             const increment = target / (duration / 16);
             let current = start;
@@ -678,32 +1485,73 @@
 
         function formatNumber(num) {
             if (num >= 1000000) {
-                return (num / 1000000).toFixed(0) + 'M+';
+                return (num / 1000000).toFixed(1) + 'M+';
             } else if (num >= 1000) {
                 return (num / 1000).toFixed(0) + 'K+';
             }
             return num + '+';
         }
 
-        // Запуск анимации счетчиков при попадании в область видимости
+        // Запуск счетчиков при видимости
         const statsObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting && !entry.target.dataset.animated) {
-                    const numbers = [557000, 83000000, 1000, 9];
-                    document.querySelectorAll('.stat-number').forEach((el, idx) => {
-                        if (idx < numbers.length) {
-                            animateCounter(el, numbers[idx]);
-                        }
-                    });
+                    const counters = entry.target.querySelectorAll('.stat-number');
+                    counters.forEach(counter => animateCounter(counter));
                     entry.target.dataset.animated = 'true';
                 }
             });
         }, { threshold: 0.5 });
 
-        const statsSection = document.querySelector('.stats-grid');
-        if (statsSection) {
-            statsObserver.observe(statsSection);
-        }
+        const statsBar = document.querySelector('.stats-bar');
+        if (statsBar) statsObserver.observe(statsBar);
+
+        // Параллакс эффект для hero
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const hero = document.querySelector('.hero-content');
+            if (hero && scrolled < window.innerHeight) {
+                hero.style.transform = `translateY(${scrolled * 0.5}px)`;
+                hero.style.opacity = 1 - (scrolled / window.innerHeight);
+            }
+        });
+
+        // Курсор эффект для карточек
+        document.querySelectorAll('.content-card, .social-card').forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+
+                const rotateX = (y - centerY) / 20;
+                const rotateY = (centerX - x) / 20;
+
+                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-15px)`;
+            });
+
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = '';
+            });
+        });
+
+        // Easter egg - Konami Code
+        let konamiCode = [];
+        const konamiSequence = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
+
+        window.addEventListener('keydown', (e) => {
+            konamiCode.push(e.key);
+            konamiCode = konamiCode.slice(-10);
+
+            if (konamiCode.join('') === konamiSequence.join('')) {
+                document.body.style.filter = 'hue-rotate(180deg)';
+                setTimeout(() => {
+                    document.body.style.filter = '';
+                }, 3000);
+            }
+        });
     </script>
 </body>
 </html>
